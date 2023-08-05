@@ -85,7 +85,7 @@ function App() {
 
 
   return (
-    <div>
+    <div className="App">
       <BrowserRouter>
         <UserContext.Provider 
         value={{  currentUser, setCurrentUser, applications,

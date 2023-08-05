@@ -4,6 +4,8 @@ import UserContext from '../profile/UserContext';
 import SearchForm from '../common/SearchForm';
 import JoblyApi from '../api/api';
 import JobCard from './JobCard';
+import "./Jobs.css"
+
 
 /** Show limited information about a job.
  *
@@ -45,8 +47,7 @@ const Jobs = ({ companyJobs }) => {
     }
 
     return (
-        <div>
-            jobs
+        <div className="Jobs">
             {!companyJobs ? <SearchForm searchFunction={searchJobs} /> : null}
 
             {jobs.map(job => (

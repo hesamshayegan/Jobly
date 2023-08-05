@@ -1,0 +1,63 @@
+.page-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, rgba(125, 45, 125, 0.3), rgba(255, 223, 0, 0.3), rgba(222, 222, 4, 0.3));
+}
+
+.EditForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, rgba(125, 45, 125, 0.3), rgba(255, 223, 0, 0.3), rgba(222, 222, 4, 0.3));
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.label {
+    font-size: 1.2rem;
+    color: purple;
+    margin-right: 1rem;
+    width: 120px; /* Adjust the width as needed */
+}
+
+.input {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-control-plaintext {
+    font-size: 1.2rem;
+    color: purple; /* Adjust the color as needed */
+    margin-bottom: 1rem;
+}
+
+.EditForm h1 {
+    font-size: 2rem;
+}
+
+button {
+    background-color: purple;
+    color: gold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: gold;
+    color: purple;
+}

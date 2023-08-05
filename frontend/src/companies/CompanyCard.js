@@ -1,6 +1,6 @@
 import { Card, CardBody, CardTitle, CardText, ListGroupItem } from "reactstrap"
 import { Link } from "react-router-dom";
-
+// import "./CompanyCard.css"
 
 /** Show limited information about a company
  *
@@ -22,7 +22,7 @@ const CompanyCard = ({ name, handle, description, logoUrl }) => {
                         
                     </CardTitle>
                     <CardText className="font-italic"> {description} </CardText>
-                    {(logoUrl ? <img src={logoUrl}></img> : "no image")}
+                    {(logoUrl ? <img src={logoUrl} className="company-logo"></img> : "no image")}
                 </CardBody>
             </Card>
         </section>

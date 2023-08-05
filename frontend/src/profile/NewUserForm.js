@@ -1,43 +1,26 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-
-
-/** NewUser form.
- *
- * Shows form and manages update to state on changes.
- * On submission:
- * - calls registerUser function prop
- * - redirects to / route
- *
- * MyRoutes -> NewUserForm
- * Routed as /signup
-*/
+import "./NewUserForm.css"; // Import the CSS file
 
 const NewUserForm = ({ registerUser }) => {
-    const INITIAL_STATE = { username: "", password: "",
-                            firstName: "", lastName: "",
-                            email: ""
-                          }
+    const INITIAL_STATE = {
+        username: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        email: ""
+    };
 
     const [formData, setFormData] = useState(INITIAL_STATE);
-
     const navigate = useNavigate();
 
-
-    /** Handle form submit:
-     *
-     * Calls registerUser func prop and, if successful, redirect to /.
-     */
     const handleSubmit = evt => {
         evt.preventDefault();
-        registerUser(formData)
+        registerUser(formData);
         setFormData(INITIAL_STATE);
         navigate(`/`);
     };
 
-
-    /** Update form data field */
     const handleChange = evt => {
         const { name, value } = evt.target;
         setFormData(fData => ({
@@ -46,60 +29,87 @@ const NewUserForm = ({ registerUser }) => {
         }));
     };
 
-    /** render form */
-
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <br />
-            <input
-                id="username"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="password">Password</label>
-            <br />
-            <input
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="firstName">First Name</label>
-            <br />
-            <input
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="lastName">Last Name</label>
-            <br />
-            <input
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="email">Email</label>
-            <br />
-            <input
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-            />
-            <br />
+        <div className="page-container">
+            
+            <form className="SignupForm" onSubmit={handleSubmit}>
+            <h1> Sign Up </h1>
+                <div className="input-group">
+                    
+                    <label htmlFor="username" className="label" >
+                        Username
+                    </label>
+                    <input
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        className="input"
+                        placeholder="Username"
+                    />
+                </div>
 
-            <button>Submit</button>
-        </form>
-    )
+                <div className="input-group">
+                    <label htmlFor="password" className="label">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        className="input"
+                        type="password"
+                        placeholder="Password"
+                    />
+                </div>
 
-}
+                <div className="input-group">
+                    <label htmlFor="firstName" className="label">
+                        First Name
+                    </label>
+                    <input
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className="input"
+                        placeholder="First Name"
+                    />
+                </div>
+
+                <div className="input-group">
+                    <label htmlFor="lastName" className="label">
+                        Last Name
+                    </label>
+                    <input
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="input"
+                        placeholder="Last Name"
+                    />
+                </div>
+
+                <div className="input-group">
+                    <label htmlFor="email" className="label">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="input"
+                        placeholder="Email"
+                    />
+                </div>
+
+                <button>Submit</button>
+            </form>
+        </div>
+    );
+};
 
 export default NewUserForm;

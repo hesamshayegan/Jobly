@@ -1,71 +1,73 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import "./LoginForm.css";
 
-/** Login form.
- *
- * Shows form and manages update to state on changes.
- * On submission:
- * - calls loginUser function prop
- * - redirects to / route
- *
- * MyRoutes -> LoginForm 
- * Routed as /login
-*/
 
-const LoginForm = ({ loginUser}) => {
+
+const LoginForm = ({ loginUser }) => {
+
     const INITIAL_STATE = { username: "", password: "" };
     const [formData, setFormData] = useState(INITIAL_STATE);
 
     const navigate = useNavigate();
 
-    /** Handle form submit:
-     *
-     * Calls loginUser func prop and, if successful, redirect to /.
-    */
-
-    const handleSubmit = evt => {
-        evt.preventDefault();
-        loginUser(formData)
-        setFormData(INITIAL_STATE);
-        navigate("/");
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
+        
+        try{
+            await loginUser(formData);
+            setFormData(INITIAL_STATE);
+            console.log(`login successful`)
+            navigate('/');
+        
+        }catch(e){
+            alert(e)
+            setFormData(INITIAL_STATE);
+        } 
     }
 
-    /** Update form data field */
-    const handleChange = evt  => {
-        const { name ,value } = evt.target;
+    const handleChange = evt => {
+        const { name, value } = evt.target;
         setFormData(fData => ({
             ...fData,
-            [name]:value
+            [name]: value
         }));
     }
 
-    /** render form */
-
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username"> Username </label>
-            <br />
-            <input
-                id = "username"
-                name = "username"
-                value = {formData.username}
-                onChange = {handleChange}
-            />
-            <br />
-            <label htmlFor="password"> Password </label>
-            <br />
-            <input
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-            />
-            <br />
+        <div className="page-container">
+            <form className="LoginForm" onSubmit={handleSubmit}>
+            <h1> Login </h1>
+                <div className="input-container">
+                    <label htmlFor="username" className="label">Username</label>
+                    <input
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        className="input"
+                        placeholder="Username"
+                    />
+                </div>
+                <div className="input-container">
+                    <label htmlFor="password" className="label">Password</label>
+                    <input
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        type="password"
+                        className="input"
+                        placeholder="Password"
+                    />
+                </div>
 
-            <button> Submit </button>
-        </form>
-    );
-
-};
+                 <button>Submit</button>
+            </form>
+        </div>
+     );
+ };
 
 export default LoginForm;
+

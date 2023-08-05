@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import JoblyApi from "../api/api";
 import Jobs from "../jobs/Jobs.js"
 import UserContext from "../profile/UserContext";
+import "./CompanyDetails.css"
 
 /** Company Detail page.
  *
@@ -40,7 +41,7 @@ if (!currentUser && userInfoLoaded) {
     
     return (
         <div>
-            <div>
+            <div className="company-detail">
                 <h4>{company.name}</h4>
                 <p>{company.description}</p>
                 <Jobs jobs={company.jobs} companyJobs={company.jobs} />
@@ -50,4 +51,5 @@ if (!currentUser && userInfoLoaded) {
 }
 
 };
+
 export default CompanyDetails;

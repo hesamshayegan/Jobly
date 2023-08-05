@@ -34,6 +34,7 @@ const MyRoutes = () => {
                 <Route path="/signup" element={<NewUserForm registerUser={registerUser} />} />
 
                 <Route path="/profile" element={<EditUserForm updateUser={updateUser} />} />
+                
 
 
                 <Route path="*" element={<Navigate replace to="/" />} />

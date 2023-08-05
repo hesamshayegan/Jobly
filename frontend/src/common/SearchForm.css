@@ -1,0 +1,28 @@
+/* SearchForm.css */
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    height: 40px; /* Set the desired height */
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: purple;
+    color: gold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

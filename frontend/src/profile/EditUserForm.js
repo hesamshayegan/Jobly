@@ -1,133 +1,140 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import UserContext from "../profile/UserContext";
-
-/** Profile editing form.
- *
- * Displays profile form and handles changes to local form state.
- * Submitting the form calls the API to save, and triggers user reloading
- * throughout the site.
- * 
- * Receives updateUser function prop from parent, which will update user information.
- * 
- * Inital form values default to blank until currentUser is updated,
- * at which point useEffect updates the values to the user data.
-
- * Routed as /profile
- * MyRoutes -> EditUserForm 
- */
-
+import "./EditUserForm.css"; // Import the CSS file
 
 const EditUserForm = ({ updateUser }) => {
-
     const navigate = useNavigate();
     const { currentUser, token, userInfoLoaded } = useContext(UserContext);
 
-    let INITIAL_STATE = { username: "",
-                          password: "",
-                          firstName: "",
-                          lastName: "",
-                          email: ""                          
-                        }
-    
-    const [formData, setFormData] = useState(INITIAL_STATE);
+    let INITIAL_STATE = {
+        username: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        email: ""
+    };
 
+    const [formData, setFormData] = useState(INITIAL_STATE);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (token && currentUser) {
-            INITIAL_STATE = { password: "",
-                              firstName: currentUser.firstName,
-                              lastName: currentUser.lastName,
-                              email: currentUser.email  
-                            }
-        setFormData(INITIAL_STATE)
+            INITIAL_STATE = {
+                password: "",
+                firstName: currentUser.firstName,
+                lastName: currentUser.lastName,
+                email: currentUser.email
+            };
+            setFormData(INITIAL_STATE);
         }
-    }, [currentUser])
+    }, [currentUser]);
 
-
-    //Redirects unauthorized users to /login route
     if (!currentUser && userInfoLoaded) {
-        return <Navigate replace to ="/login" />
+        return <Navigate replace to="/login" />;
     }
 
-    /** on form submit:
-     *   - clear password
-     *   - Tell the parent to update user
-    */
-
-    const handleSubmit = evt => {
+    const handleSubmit = async evt => {
         evt.preventDefault();
 
-        let profileData = {
+        const profileData = {
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
-            password: formData.password,
+            password: formData.password
         };
 
-        updateUser(profileData)
-        setFormData(INITIAL_STATE);
-        navigate('/');
-    }
+        // updateUser(profileData);
+        // setFormData(INITIAL_STATE);
+        // navigate("/");
 
-    /** Update form fields */
+        try {
+            await updateUser(profileData);
+            setError(null); // Clear error if update is successful
+            setFormData(INITIAL_STATE);
+            navigate("/");
+        } catch (error) {
+            setError("Incorrect username or password."); // Set error message
+        }
+    };
 
     const handleChange = evt => {
-        const { name, value} = evt.target;
+        const { name, value } = evt.target;
         setFormData(fData => ({
             ...fData,
             [name]: value
         }));
-    }
+    };
 
-    /** render form */
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
+        <div className="page-container">
+            <form className="EditForm"onSubmit={handleSubmit}>
+                <div className="input-group">
+                    <label htmlFor="username" className="label">
+                        Username
+                    </label>
+                    <p className="form-control-plaintext">{currentUser ? currentUser.username : ""}</p>
+                </div>
 
-            <p className="form-control-plaintext">{currentUser ? currentUser.username : ""}</p>
+                <div className="input-group">
+                    <label htmlFor="password" className="label">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        className="input"
+                        type="password"
+                    />
+                </div>
 
-            <label htmlFor="password">Password</label>
-            <br />
-            <input
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="firstName">First Name</label>
-            <br />
-            <input
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="lastName">Last Name</label>
-            <br />
-            <input
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-            />
-            <br />
-            <label htmlFor="email">Email</label>
-            <br />
-            <input
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-            />
-            <br />
+                <div className="input-group">
+                    <label htmlFor="firstName" className="label">
+                        First Name
+                    </label>
+                    <input
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className="input"
+                    />
+                </div>
 
-            <button>Submit</button>
-        </form>
-    )
+                <div className="input-group">
+                    <label htmlFor="lastName" className="label">
+                        Last Name
+                    </label>
+                    <input
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="input"
+                    />
+                </div>
 
+                <div className="input-group">
+                    <label htmlFor="email" className="label">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="input"
+                    />
+                </div>
+
+                {error && <div className="error-message">{error}</div>} {/* Display error message */}
+                
+                <button>Submit</button>
+            </form>
+        </div>
+    );
 };
 
 export default EditUserForm;

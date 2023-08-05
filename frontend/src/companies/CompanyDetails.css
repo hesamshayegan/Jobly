@@ -1,0 +1,14 @@
+.company-detail {
+    padding-top: 20px;
+    text-align: center;
+
+}
+
+.company-detail h4 {
+    color: purple;
+    font-size: 1.5rem;
+}
+
+.company-detail p {
+    color: purple;
+}

@@ -1,63 +1,50 @@
-import React, {useState, useContext, useEffect } from "react"
+import React, { useState, useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import UserContext from "../profile/UserContext";
 import JoblyApi from "../api/api";
-
 import CompanyCard from "./CompanyCard";
 import SearchForm from "../common/SearchForm";
-
-
-/** Show page with list of companies.
- *
- * On mount, loads companies from API.
- * Re-loads filtered companies on submit from search form.
- *
- * This is routed to at /companies
- *
- * MyRoutes -> { CompanyCard, SearchForm }
- */
+import "./Companies.css";
 
 const Companies = () => {
     const [companies, setCompanies] = useState([]);
-    const { currentUser, userInfoLoaded } = useContext(UserContext)
+    const { currentUser, userInfoLoaded } = useContext(UserContext);
 
-
-    // Searches for Company
     async function getCompanies(data) {
         let companies = await JoblyApi.getAllCompanies(data.search);
-        console.log(data)
-        setCompanies(companies)
+        setCompanies(companies);
     }
 
-    // Set the company list.
     useEffect(() => {
-        async function getCompanies() {
+        async function fetchCompanies() {
             let companies = await JoblyApi.getAllCompanies();
             setCompanies(companies);
-        };
-        getCompanies(); 
-
+        }
+        fetchCompanies();
     }, []);
 
-    // Redirects unauthorized users to /login route
     if (!currentUser && userInfoLoaded) {
-        return <Navigate replace to ="/login" />
+        return <Navigate replace to="/login" />;
     }
 
     return (
-        <div>
-            companies
+        <div className="companies-container">
+            <h1 className="page-title">Companies </h1>
             <SearchForm searchFunction={getCompanies} />
-            {companies.map(company => (
-                <CompanyCard    
-                name={company.name} 
-                handle={company.handle}
-                description={company.description}
-                logoUrl={company.logoUrl} />
-            ))}
+            <div className="company-list">
+                {companies.map(company => (
+                    <CompanyCard
+                        key={company.handle}
+                        name={company.name}
+                        handle={company.handle}
+                        description={company.description}
+                        logoUrl={company.logoUrl}
+                    />
+                ))}
+            </div>
         </div>
-    )
-
+    );
 };
 
 export default Companies;
+

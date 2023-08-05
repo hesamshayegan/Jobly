@@ -1,0 +1,38 @@
+/* Nav.css */
+.MyNavBarClass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(125, 45, 125);
+    color: gold;
+    padding: 10px 20px; /* Add reasonable padding */
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Add margin to the left */
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Add margin to the right */
+}
+
+.MyNavBarClass a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+    margin: 0 10px; /* Add margin between buttons */
+}
+
+.MyNavBarClass a:hover {
+    color: rgb(200, 100, 200);
+}
+
+.logout-link {
+    cursor: pointer;
+}
