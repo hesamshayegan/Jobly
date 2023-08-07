@@ -1,59 +1,39 @@
 import React, { useState } from "react";
-import "./SearchForm.css"
+import "./SearchForm.css";
 
+function SearchForm({ searchFor }) {
+  console.debug("SearchForm", "searchFor=", typeof searchFor);
 
-/** Search widget.
- *
- * Appears on CompanyList and JobList so that these can be filtered
- * down.
- *
- * This component doesn't *do* the searching, but it renders the search
- * form and calls the `searchFunction` function prop that runs in a parent to do the
- * searching.
- *
- * { CompanyList, JobList } -> SearchForm
- */
+  const [searchTerm, setSearchTerm] = useState("");
 
-const SearchForm = ({ searchFunction }) => {
-    const INITIAL_STATE = { search: "Enter search term..."};
-    const [formData, setFormData] = useState(INITIAL_STATE);
+  /** Tell parent to filter */
+  function handleSubmit(evt) {
+    // take care of accidentally trying to search for just spaces
+    evt.preventDefault();
+    searchFor(searchTerm.trim() || undefined);
+    setSearchTerm(searchTerm.trim());
+  }
 
-    /** Send {search} to parent
-     *    & clear form. */
+  /** Update form fields */
+  function handleChange(evt) {
+    setSearchTerm(evt.target.value);
+  }
 
-    const handleSubmit = evt => {
-        evt.preventDefault();
-        searchFunction(formData)
-        setFormData(INITIAL_STATE);
-    };
-
-    //** Update local state w/curr state of input elem */
-
-    const handleChange = evt => {
-        const { name, value } = evt.target;
-        setFormData(fData => ({
-            ...fData,
-            [name]: value
-        }));
-    };
-
-    /** render form */
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="search"></label>
-            <br />
-            <input
-                id="search"
-                name="search"
-                value={formData.search}
-                onChange={handleChange}
-            />
-            <br />
-
-            <button>Search</button>
+  return (
+      <div>
+        <form className="search-form" onSubmit={handleSubmit}>
+          <input              
+              name="searchTerm"
+              placeholder="Enter search term.."
+              value={searchTerm}
+              onChange={handleChange}
+          />
+          <button type="submit">
+            Submit
+          </button>
         </form>
-    )
+      </div>
+  );
 }
 
 export default SearchForm;

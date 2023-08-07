@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./NewUserForm.css"; // Import the CSS file
+import "./NewUserForm.css";
 
 const NewUserForm = ({ registerUser }) => {
     const INITIAL_STATE = {
@@ -14,11 +14,21 @@ const NewUserForm = ({ registerUser }) => {
     const [formData, setFormData] = useState(INITIAL_STATE);
     const navigate = useNavigate();
 
-    const handleSubmit = evt => {
+ 
+
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
-        registerUser(formData);
-        setFormData(INITIAL_STATE);
-        navigate(`/`);
+
+
+        try {
+            await registerUser(formData);
+            setFormData(INITIAL_STATE);
+            navigate(`/`);
+        } catch(error) {
+            alert(error);
+            setFormData(INITIAL_STATE);
+        }
+        
     };
 
     const handleChange = evt => {
@@ -105,6 +115,8 @@ const NewUserForm = ({ registerUser }) => {
                         placeholder="Email"
                     />
                 </div>
+
+              
 
                 <button>Submit</button>
             </form>

@@ -25,9 +25,9 @@ function Nav() {
                     </>
                 ) : (
                     <>
-                        <p> <NavLink exact to="/companies" className="nav-link">Companies</NavLink></p>
-                        <p> <NavLink exact to="/jobs" className="nav-link">Jobs</NavLink></p>
-                        <p> <NavLink exact to="/profile" className="nav-link">Profile</NavLink></p>
+                        <p> <NavLink  exact to="/companies" className="nav-link">Companies</NavLink></p>
+                        <p> <NavLink  to="/jobs" className="nav-link">Jobs</NavLink></p>
+                        <p> <NavLink  to="/profile" className="nav-link">Profile</NavLink></p>
                         <p>
                             <Link className="nav-link logout-link" to="/" onClick={logoutUser}>
                                 Logout {currentUser.firstName || currentUser.username}

@@ -1,19 +1,9 @@
-
 import React, { useState, useContext, useEffect } from "react";
 import { Card, CardBody, CardTitle } from "reactstrap";
 import JoblyApi from "../api/api";
 import UserContext from "../profile/UserContext";
 import "./JobCard.css"
 
-
-/** Show limited information about a job.
- *
- * Is rendered by Jobs to show a "card" for each job.
- * 
- * Has "apply" button.
-
- * Jobs -> JobCard
-*/
 
 const JobCard = ({ id, title, salary, equity, companyName }) => {
     
@@ -29,7 +19,7 @@ const JobCard = ({ id, title, salary, equity, companyName }) => {
     }, [userInfoLoaded]);
 
 
-    //Apply to Job
+
     async function jobApply() {
         await JoblyApi.jobApply(currentUser.username, id);
         setApplications(prevIds => ([...prevIds, id]))

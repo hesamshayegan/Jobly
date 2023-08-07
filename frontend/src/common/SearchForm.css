@@ -1,22 +1,21 @@
-/* SearchForm.css */
-form {
+.search-form {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 70%;
     margin: 0 auto;
     margin-bottom: 20px;
-    height: 40px; /* Set the desired height */
+    height: 40px;
   }
   
-  input {
+  .search-form input {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
   }
   
-  button {
+  .search-form button {
     margin-left: 10px;
     padding: 10px 20px;
     background-color: purple;

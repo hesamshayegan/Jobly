@@ -7,15 +7,6 @@ import Jobs from "../jobs/Jobs.js"
 import UserContext from "../profile/UserContext";
 import "./CompanyDetails.css"
 
-/** Company Detail page.
- *
- * Renders information about company, along with the jobs at that company.
- *
- * Routed at /companies/:handle
- *
- * MyRoutes -> CompanyDetail -> Jobs
-*/
-
 const CompanyDetails = () => {
 
     const { handle } = useParams();
@@ -31,7 +22,7 @@ const CompanyDetails = () => {
         getCompany();
     }, [handle]);
 
-// Redirects unauthorized users to /login route
+
 if (!currentUser && userInfoLoaded) {
     return <Navigate replace to="./login" />
 } else {

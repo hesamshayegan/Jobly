@@ -17,15 +17,15 @@
 
 .input-container {
     display: flex;
-    flex-direction: row; /* Display labels and inputs side by side */
-    align-items: center; /* Align items vertically */
+    flex-direction: row;
+    align-items: center; 
     margin-bottom: 1rem;
 }
 
 .label {
     font-size: 1.2rem;
     color: purple;
-    margin-right: 1rem; /* Add margin to create spacing between label and input */
+    margin-right: 1rem;
 }
 
 .input {

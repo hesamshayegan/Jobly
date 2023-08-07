@@ -8,10 +8,7 @@ import CompanyDetails from "../companies/CompanyDetail"
 import Jobs from "../jobs/Jobs"
 import NewUserForm from "../profile/NewUserForm"
 import EditUserForm from "../profile/EditUserForm"
-
-
-
-
+import PrivateRoutes from "./PrivateRoutes";
 
 
 const MyRoutes = () => {
@@ -23,22 +20,27 @@ const MyRoutes = () => {
                 
                 <Route path = "/" element = {<Home />} />
 
-                <Route path = "/companies" element = {<Companies />} />
-
-                <Route path ="/companies/:handle" element={<CompanyDetails />} />
-
-                <Route path="/jobs" element={<Jobs />} />
-
                 <Route path="/login" element={<LoginForm loginUser={loginUser}/>} />
 
                 <Route path="/signup" element={<NewUserForm registerUser={registerUser} />} />
-
-                <Route path="/profile" element={<EditUserForm updateUser={updateUser} />} />
+ 
                 
+                <Route element={<PrivateRoutes /> }>
+
+                    <Route path="/profile" element={<EditUserForm updateUser={updateUser} />} />
+
+                    <Route exact path="/companies" element={<Companies />} />
+
+                    <Route exact path="/companies/:handle" element={<CompanyDetails />} />
+
+                    <Route exact path="/jobs" element={<Jobs />} />
 
 
+                </Route>
+
+             
                 <Route path="*" element={<Navigate replace to="/" />} />
-
+                        
             </Routes>
         </div>
 
@@ -46,3 +48,5 @@ const MyRoutes = () => {
 }
 
 export default MyRoutes;
+
+

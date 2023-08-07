@@ -3,14 +3,12 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    /* overflow: hidden */
 }
 
 .overflow-hidden {
     overflow: hidden;
 }
 
-/* Centering the Home-container horizontally and vertically */
 .Home-container {
     display: flex;
     flex-direction: column;
@@ -26,22 +24,22 @@ html, body {
     width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    text-align: center; /* Center text within the container */
+    align-items: center; 
+    justify-content: center;
+    text-align: center; 
 }
 
 .content {
-    padding-top: 20px; /* Adjust this value as needed */
+    padding-top: 20px; 
     text-align: center;
 }
 
 .buttons {
-    margin-top: 20px; /* Adjust this value as needed */
+    margin-top: 20px; 
 }
 
 .Home-container h1 {
-    font-size: 2.5rem; /* Decrease font size */
+    font-size: 2.5rem;
     color: purple;
     margin-bottom: 1rem;
 }
@@ -49,19 +47,19 @@ html, body {
 .Home-container h2 {
     font-size: 1.8rem;
     color: gold;
-    margin-bottom: 0.5rem; /* Adjust this value as needed */
+    margin-bottom: 0.5rem;
 }
 
 .Home-container p {
     font-size: 1.2rem;
-    color: rgb(78, 79, 4); /* Use gold color */
+    color: rgb(78, 79, 4);
     margin-top: 0;
     margin-bottom: 1.5rem;
 }
 
 .Home-container .mx-2 {
     margin: 0 1rem;
-    font-size: 1.4rem; /* Decrease button font size */
+    font-size: 1.4rem;
     background-color: gold;
     color: purple;
     border: none;

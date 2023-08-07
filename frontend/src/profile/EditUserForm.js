@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import UserContext from "../profile/UserContext";
-import "./EditUserForm.css"; // Import the CSS file
+import "./EditUserForm.css";
 
 const EditUserForm = ({ updateUser }) => {
     const navigate = useNavigate();
@@ -44,17 +44,13 @@ const EditUserForm = ({ updateUser }) => {
             password: formData.password
         };
 
-        // updateUser(profileData);
-        // setFormData(INITIAL_STATE);
-        // navigate("/");
-
         try {
             await updateUser(profileData);
-            setError(null); // Clear error if update is successful
+            setError(null);
             setFormData(INITIAL_STATE);
             navigate("/");
         } catch (error) {
-            setError("Incorrect username or password."); // Set error message
+            setError("Incorrect username or password."); 
         }
     };
 
@@ -129,7 +125,7 @@ const EditUserForm = ({ updateUser }) => {
                     />
                 </div>
 
-                {error && <div className="error-message">{error}</div>} {/* Display error message */}
+                {error && <div className="error-message">{error}</div>}
                 
                 <button>Submit</button>
             </form>

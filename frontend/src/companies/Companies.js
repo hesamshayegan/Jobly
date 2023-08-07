@@ -1,50 +1,56 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import UserContext from "../profile/UserContext";
+import React, { useState, useEffect } from "react";
+import SearchForm from "../common/SearchForm";
 import JoblyApi from "../api/api";
 import CompanyCard from "./CompanyCard";
-import SearchForm from "../common/SearchForm";
 import "./Companies.css";
 
-const Companies = () => {
-    const [companies, setCompanies] = useState([]);
-    const { currentUser, userInfoLoaded } = useContext(UserContext);
 
-    async function getCompanies(data) {
-        let companies = await JoblyApi.getAllCompanies(data.search);
-        setCompanies(companies);
-    }
+function CompanyList() {
+  console.debug("CompanyList");
 
-    useEffect(() => {
-        async function fetchCompanies() {
-            let companies = await JoblyApi.getAllCompanies();
-            setCompanies(companies);
-        }
-        fetchCompanies();
-    }, []);
+  const [companies, setCompanies] = useState(null);
+  
+  
+  useEffect(function getCompaniesOnMount() {
+    console.debug("CompanyList useEffect getCompaniesOnMount");
+    search();
+  }, []);
 
-    if (!currentUser && userInfoLoaded) {
-        return <Navigate replace to="/login" />;
-    }
+  /** Triggered by search form submit; reloads companies. */
+  async function search(name) {
+    let companies = await JoblyApi.getAllCompanies(name);
+    setCompanies(companies);
+    console.log("state", setCompanies)
+  }
 
-    return (
-        <div className="companies-container">
-            <h1 className="page-title">Companies </h1>
-            <SearchForm searchFunction={getCompanies} />
-            <div className="company-list">
-                {companies.map(company => (
-                    <CompanyCard
-                        key={company.handle}
-                        name={company.name}
-                        handle={company.handle}
-                        description={company.description}
-                        logoUrl={company.logoUrl}
-                    />
-                ))}
+  
+
+  return (
+
+            <div className="companies-container">
+              
+                
+              <SearchForm searchFor={search} />
+                  {companies && companies.length
+                    ? (
+                      <div className="company-list">  
+                                           
+                          {companies.map(c => (
+                              <CompanyCard
+                                  key={c.handle}
+                                  handle={c.handle}
+                                  name={c.name}
+                                  description={c.description}
+                                  logoUrl={c.logoUrl}
+                              />
+                          ))}
+                        </div>
+                    ) : (
+                        <p className="lead">Sorry, no results were found!</p>
+                  )}
             </div>
-        </div>
-    );
-};
+      
+  );
+}
 
-export default Companies;
-
+export default CompanyList;
