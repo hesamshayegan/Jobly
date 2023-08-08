@@ -76,7 +76,7 @@ function App() {
 
           <Nav />
           <main>
-            <MyRoutes />
+          {userInfoLoaded ? <MyRoutes /> : null}
           </main>
         </UserContext.Provider >
       </BrowserRouter>
