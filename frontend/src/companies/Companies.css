@@ -12,11 +12,6 @@
     text-align: center;
 }
 
-.search-form {
-    width: 70%;
-    margin-bottom: 20px;
-}
-
 .company-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -41,16 +36,21 @@
 
 /* Add styles for links */
 
-a {
-    color: purple;
+.company-list li {
     font-weight: bold;
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: color 0.2s;
+    font-size: 1.1rem;    
+    list-style-type: none;
+    
 }
 
-a:hover {
-    color: darkpurple;
+.company-list a {
+    color:purple;  
+    text-decoration: none;
+}
+
+.company-list a:hover {
+    color:gold;  
+    text-decoration: underline;
 }
 
 .card-body {
@@ -95,3 +95,8 @@ a:hover {
     max-width: 200px;
     max-height: 200px; 
 }
+
+.companies-search-msg {
+    text-align: center;
+}
+

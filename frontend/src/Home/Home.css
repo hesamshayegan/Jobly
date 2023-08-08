@@ -74,11 +74,40 @@ html, body {
     color: gold;
 }
 
-a {
+.home a {
     color: purple;
     text-decoration: none;
 }
 
-a:hover {
+.home a:hover {
     color: gold;
 }
+
+
+@media (max-width: 768px) {
+    .Home-container {
+      padding: 20px;
+    }
+  
+    .container {
+      width: 100%;
+      padding: 0 10px;
+    }
+  
+    .Home-container h1 {
+      font-size: 2rem;
+    }
+  
+    .Home-container h2 {
+      font-size: 1.5rem;
+    }
+  
+    .Home-container p {
+      font-size: 1rem;
+    }
+  
+    .Home-container .mx-2 {
+      font-size: 1.2rem;
+      padding: 8px 16px;
+    }
+  }

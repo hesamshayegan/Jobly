@@ -7,7 +7,7 @@ import "./Home.css";
 const Home = () => {
 
     const { currentUser } = useContext(UserContext);
-    console.debug("Homepage", "currentUser=", currentUser);
+    // console.debug("Homepage", "currentUser=", currentUser);
 
     useEffect(() => {
        
@@ -32,7 +32,7 @@ const Home = () => {
                 Welcome Back, {currentUser.firstName || currentUser.username}!
               </h2>
               : (
-                  <p>
+                  <p className="home">
                     <Button color="secondary" className="mx-2">
                         <Link to="/login"> Login </Link>
                     </Button>

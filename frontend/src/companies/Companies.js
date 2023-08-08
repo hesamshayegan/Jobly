@@ -3,24 +3,30 @@ import SearchForm from "../common/SearchForm";
 import JoblyApi from "../api/api";
 import CompanyCard from "./CompanyCard";
 import "./Companies.css";
+import { Link, useLocation } from "react-router-dom";
 
 
 function CompanyList() {
-  console.debug("CompanyList");
+  // console.debug("CompanyList");
 
   const [companies, setCompanies] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const location = useLocation();
   
   
-  useEffect(function getCompaniesOnMount() {
-    console.debug("CompanyList useEffect getCompaniesOnMount");
-    search();
-  }, []);
+  useEffect(() => {
+    if (location.pathname === "/companies") {
+        setSearchTerm("");
+        searchCompanies();
+    }
+  }, [location]);
 
   /** Triggered by search form submit; reloads companies. */
-  async function search(name) {
+  async function searchCompanies(name) {
     let companies = await JoblyApi.getAllCompanies(name);
     setCompanies(companies);
-    console.log("state", setCompanies)
+    
   }
 
   
@@ -30,7 +36,7 @@ function CompanyList() {
             <div className="companies-container">
               
                 
-              <SearchForm searchFor={search} />
+              <SearchForm searchFor={searchCompanies} />
                   {companies && companies.length
                     ? (
                       <div className="company-list">  
@@ -46,8 +52,9 @@ function CompanyList() {
                           ))}
                         </div>
                     ) : (
-                        <p className="lead">Sorry, no results were found!</p>
+                        <p className="companies-search-msg">Sorry, no results were found!</p>
                   )}
+
             </div>
       
   );

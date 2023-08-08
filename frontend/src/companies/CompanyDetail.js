@@ -3,9 +3,11 @@ import { useParams, Navigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import JoblyApi from "../api/api";
-import Jobs from "../jobs/Jobs.js"
 import UserContext from "../profile/UserContext";
 import "./CompanyDetails.css"
+import JobCard from "../jobs/JobCard";
+
+
 
 const CompanyDetails = () => {
 
@@ -17,7 +19,7 @@ const CompanyDetails = () => {
         async function getCompany() {
             let company = await JoblyApi.getCompany(handle);
             setCompany(company);
-            console.log(company)
+            
         }
         getCompany();
     }, [handle]);
@@ -30,12 +32,24 @@ if (!currentUser && userInfoLoaded) {
     if (!company) return (
         <div> loading </div>);
     
+    
     return (
         <div>
             <div className="company-detail">
                 <h4>{company.name}</h4>
                 <p>{company.description}</p>
-                <Jobs jobs={company.jobs} companyJobs={company.jobs} />
+
+                {company.jobs.map(job =>(
+                    
+                        <JobCard
+                            id={job.id} 
+                            title={job.title}
+                            salary={job.salary}
+                            equity={job.equity}
+                            key={job.id}
+                        />
+                ))}
+                
             </div>
         </div>
     )

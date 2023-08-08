@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SearchForm.css";
 
 function SearchForm({ searchFor }) {
-  console.debug("SearchForm", "searchFor=", typeof searchFor);
+  // console.debug("SearchForm", "searchFor=", typeof searchFor);
 
   const [searchTerm, setSearchTerm] = useState("");
 

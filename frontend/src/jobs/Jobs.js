@@ -1,20 +1,25 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import UserContext from '../profile/UserContext';
 import SearchForm from '../common/SearchForm';
 import JoblyApi from '../api/api';
 import JobCard from './JobCard';
+import { Link, useLocation } from "react-router-dom";
+
 import "./Jobs.css"
+import { Button } from 'reactstrap';
 
 
 const Jobs = () => {
     const [jobs, setJobs] = useState(null);
-    const { currentUser, userInfoLoaded} = useContext(UserContext);
+    const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(function getAllJobsOnMount() {
-        console.debug("JobList useEffect getAllJobsOnMount");
-        searchJobs();
-      }, []);
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/jobs") {
+            setSearchTerm("");
+            searchJobs();
+        }
+    }, [location]);
 
     async function searchJobs(title) {
         let jobs = await JoblyApi.getAllJobs(title);
@@ -22,16 +27,16 @@ const Jobs = () => {
     };
 
 
-    if (!currentUser && userInfoLoaded) {
-        return <Navigate replace to="./login" />
-    }
-
     return (
-        <div className="Jobs">
-            {jobs && jobs.length ? (
-                <>
-                    <SearchForm searchFor={searchJobs} />
-                    {jobs.map(job => (
+        <div className='jobs-container'>
+            
+                <SearchForm searchFor={searchJobs} />
+               
+
+            {jobs && jobs.length
+                ? (
+                    <div className="job-list">
+                        {jobs.map(job => (
                         <JobCard
                             key={job.id}
                             id={job.id}
@@ -40,12 +45,20 @@ const Jobs = () => {
                             equity={job.equity}
                             companyName={job.companyName}
                         />
-                    ))}
-                </>
-            ) : (
-                <p className="lead">Sorry, no results were found!</p>
-            )}
+                        ))}
+                    </div>
+ 
+                ) : (
+                    <p className="jobs-search-msg">Sorry, no results were found!</p>
+                )}
+
+                
+                    
+                
         </div>
+
+
+        
     );
     
     
